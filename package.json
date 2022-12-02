@@ -1,39 +1,103 @@
 {
-  "name": "angular",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
-  },
-  "dependencies": {
-    "@angular/animations": "^14.0.0",
-    "@angular/common": "^14.0.0",
-    "@angular/compiler": "^14.0.0",
-    "@angular/core": "^14.0.0",
-    "@angular/forms": "^14.0.0",
-    "@angular/platform-browser": "^14.0.0",
-    "@angular/platform-browser-dynamic": "^14.0.0",
-    "@angular/router": "^14.0.0",
-    "rxjs": "~7.5.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.11.4"
-  },
-  "devDependencies": {
-    "@angular-devkit/build-angular": "^14.0.0",
-    "@angular/cli": "~14.0.0",
-    "@angular/compiler-cli": "^14.0.0",
-    "@types/jasmine": "~4.0.0",
-    "jasmine-core": "~4.1.0",
-    "karma": "~6.3.0",
-    "karma-chrome-launcher": "~3.1.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.0.0",
-    "karma-jasmine-html-reporter": "~1.7.0",
-    "typescript": "~4.7.2"
-  }
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "newProjectRoot": "projects",
+    "projects": {
+        "MaquetadoAngular": {
+            "projectType": "application",
+            "schematics": {},
+            "root": "",
+            "sourceRoot": "src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/maquetado-angular",
+                        "index": "src/index.html",
+                        "main": "src/main.ts",
+                        "polyfills": [
+                            "zone.js"
+                        ],
+                        "tsConfig": "tsconfig.app.json",
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets"
+                        ],
+                        "styles": [
+                            "src/styles.css",
+                            "node_modules/bootstrap/dist/css/bootstrap.min.css"
+                        ],
+                        "scripts": [
+                            "node_modules/bootstrap/dist/js/bootstrap.min.js"
+                        ]
+                    },
+                    "configurations": {
+                        "production": {
+                            "budgets": [{
+                                    "type": "initial",
+                                    "maximumWarning": "500kb",
+                                    "maximumError": "1mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "2kb",
+                                    "maximumError": "4kb"
+                                }
+                            ],
+                            "outputHashing": "all"
+                        },
+                        "development": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "MaquetadoAngular:build:production"
+                        },
+                        "development": {
+                            "browserTarget": "MaquetadoAngular:build:development"
+                        }
+                    },
+                    "defaultConfiguration": "development"
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "MaquetadoAngular:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "polyfills": [
+                            "zone.js",
+                            "zone.js/testing"
+                        ],
+                        "tsConfig": "tsconfig.spec.json",
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets"
+                        ],
+                        "styles": [
+                            "src/styles.css"
+                        ],
+                        "scripts": []
+                    }
+                }
+            }
+        }
+    },
+    "cli": {
+        "analytics": "077cf438-9038-444a-8fc4-4f0aa9055d22"
+    }
 }
